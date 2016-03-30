@@ -1,0 +1,46 @@
+<ion-navbar *navbar>
+  <ion-title>Sign Up</ion-title>
+</ion-navbar>
+
+<ion-content padding class="content">
+    <form [ngFormModel]="form">
+        <ion-item>
+            <ion-label floating>UserName</ion-label>
+            <ion-input ngControl="name" [(ngModel)]="user.username"></ion-input>
+        </ion-item>
+        <div *ngIf="name.dirty && !name.valid && !name.pending" class="error-box">
+            <p *ngIf="name.errors.required">Name is required.</p>
+            <p *ngIf="name.errors.minlength">Min 3 letters.</p>
+            <p *ngIf="name.errors.maxlength">Max 30 letters.</p>
+        </div>
+        <ion-item>
+            <ion-label floating>Email</ion-label>
+            <ion-input ngControl="email" [(ngModel)]="user.email"></ion-input>
+        </ion-item>
+        <div *ngIf="email.dirty && !email.valid && !email.pending" class="error-box">
+            <p *ngIf="email.errors.required">Email is required.</p>
+            <p *ngIf="email.errors.isNotEmail">Invalid email address.</p>
+        </div>
+        <ion-item>
+             +( <input style="width:60px" ngControl="telcountrycode" [(ngModel)]="user.telcountrycode"  /> )
+             <input placeholder="Mobile" ngControl="mobile" [(ngModel)]="user.mobile" />
+        </ion-item>
+        <div *ngIf="telcountrycode.dirty && !telcountrycode.valid && !telcountrycode.pending" class="error-box">
+            <p *ngIf="telcountrycode.errors.required">Country code required.</p>
+            <p *ngIf="telcountrycode.errors.isNotCountryCodeTel">Invalid country code.</p>
+        </div>
+        <div *ngIf="mobile.dirty && !mobile.valid && !mobile.pending" class="error-box">
+            <p *ngIf="mobile.errors.required">Mobile is required.</p>
+            <p *ngIf="mobile.errors.isNotNumber">Invalid mobile.</p>
+        </div>
+
+
+
+
+
+    <button full (click)="signupNext()" [disabled]="!form.valid" >Next</button>
+        <p>
+            By registering, i agree to these terms
+        </p>
+    </form>
+</ion-content>

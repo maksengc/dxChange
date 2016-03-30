@@ -1,0 +1,24 @@
+<ion-navbar *navbar>
+  <ion-title>Activation</ion-title>
+</ion-navbar>
+
+<ion-content padding class="content">
+    <form [ngFormModel]="form">
+        <p>
+        Please enter 4 digit activation code sent to <span></span>
+        </p>
+
+        <ion-item>
+            <ion-input type="text" ngControl="smsverifycode"></ion-input>
+        </ion-item>
+        <div *ngIf="smsverifycode.dirty && !smsverifycode.valid && !smsverifycode.pending" class="error-box">
+        <p *ngIf="smsverifycode.errors.required">Code is required.</p>
+        <p *ngIf="smsverifycode.errors.minlength || smsverifycode.errors.maxlength">Invalid code</p>
+        </div>
+
+        <button full (click)="submitActivation()" [disabled]="!form.valid">Submit</button>
+        <button full (click)="resendActivation()">Resend Activation Code</button>
+    </form>
+
+
+</ion-content>

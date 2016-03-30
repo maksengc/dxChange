@@ -1,0 +1,55 @@
+<ion-navbar *navbar>
+  <button clear (click)="menuClick()">
+    <ion-icon name="menu" ></ion-icon>
+  </button>
+
+  <ion-title>Money Changer</ion-title>
+</ion-navbar>
+
+<ion-content padding class="content">
+
+    <form [ngFormModel]="form">
+        <ion-item>
+            <ion-label>My Currency</ion-label>
+            <ion-select [(ngModel)]="ccyIHave" (ngModelChange)="onMyCcyChange($event)">
+            <ion-option *ngFor="#ccy of ccyList" value="{{ccy.code}}">{{ccy.code}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label floating>My Amount</ion-label>
+            <ion-input ngControl="amountIHave" type="number"></ion-input>
+        </ion-item>
+        <div *ngIf="amountIHave.dirty && !amountIHave.valid && !amountIHave.pending" class="error-box">
+            <p *ngIf="amountIHave.errors.required">Amount is required.</p>
+            <p *ngIf="amountIHave.errors.isNotNumber">Amount must be a number.</p>
+        </div>
+
+        <ion-item>
+            <ion-label>To Currency</ion-label>
+            <ion-select [(ngModel)]="ccyChangeTo" (ngModelChange)="onToCcyChange($event)">
+                <ion-option *ngFor="#ccy of ccyList" value="{{ccy.code}}">{{ccy.code}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+
+            <ion-label>Search</ion-label>
+            <ion-select [(ngModel)]="countryMeet" (ngModelChange)="onCountryChange($event)">
+                <ion-option *ngFor="#country of countryList" value="{{country.code}}">{{country.name}}</ion-option>
+            </ion-select>
+
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Location</ion-label>
+            <ion-select [(ngModel)]="locationMeet">
+                <ion-option *ngFor="#city of cityList" value="{{city.city}}">{{city.city}}</ion-option>
+            </ion-select>
+        </ion-item>
+
+    <button full (click)="findMatch()" [disabled]="!form.valid || ccyChangeTo==null || ccyIHave==null">Find Match</button>
+
+    </form>
+
+</ion-content>
